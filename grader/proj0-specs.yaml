@@ -1,0 +1,20 @@
+# Shell prompt after xv6 boots
+boot_regex: "\\$ "
+
+# Match kernel logs during the boot phase
+pre_boot_expect:
+  - name: "Kernel prints proj0 banner at boot"
+    # Allow other boot logs before and after; passing if this line appears
+    ok_regex: "CSE3320 proj0 printing in kernel space"
+    points: 40
+    timeout: 60
+
+# Run user-space commands under the shell and match output
+cases:
+  - name: "User program proj0 prints formatted message"
+    # Use the required command line; modify parameters here if needed
+    cmd: "proj0 Hello World"
+    # Strictly match this line (case-sensitive, spaces must match). Replace with (?i) for case-insensitive matching if needed
+    ok_regex: "CSE3320 proj0 printing in user space: Hello World\\r?\\n"
+    points: 60
+    timeout: 30
